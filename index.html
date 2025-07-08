@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D-Scope — Behavioral Analytics Oracle for Web3</title>
+    <meta
+      name="description"
+      content="D-Scope — decentralized oracle service for privacy-preserving behavioral analytics in Web3."
+    />
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+      rel="stylesheet"
+    />
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        overflow-x: hidden;
+      }
+      #globe-canvas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+        width: 650px;
+        height: 650px;
+        z-index: 0;
+        pointer-events: none;
+        mix-blend-mode: screen;
+      }
+      .glow-text {
+        text-shadow: 0 0 10px rgba(99, 102, 241, 0.6),
+          0 0 20px rgba(99, 102, 241, 0.4);
+      }
+      .fade-tile {
+        transition: all 0.8s ease;
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      .fade-tile.visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100 font-sans">
+    <!-- Header / Navigation -->
+    <header
+      class="sticky top-0 z-50 backdrop-blur bg-gray-900/60 border-b border-gray-800"
+    >
+      <nav class="container mx-auto flex items-center justify-between p-4">
+        <a href="#" class="text-2xl font-bold text-indigo-400">D-Scope</a>
+        <ul class="hidden md:flex space-x-8 text-gray-400">
+          <li>
+            <a href="#about" class="hover:text-indigo-400 transition">About</a>
+          </li>
+          <li>
+            <a href="#features" class="hover:text-indigo-400 transition"
+              >Features</a
+            >
+          </li>
+          <li>
+            <a href="#team" class="hover:text-indigo-400 transition">Team</a>
+          </li>
+          <li>
+            <a href="#contact" class="hover:text-indigo-400 transition"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-gray-100"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </nav>
+      <div id="mobile-menu" class="hidden bg-gray-800 md:hidden">
+        <ul class="flex flex-col p-4 space-y-2 text-gray-400">
+          <li>
+            <a href="#about" class="block hover:text-indigo-400 transition"
+              >About</a
+            >
+          </li>
+          <li>
+            <a href="#features" class="block hover:text-indigo-400 transition"
+              >Features</a
+            >
+          </li>
+          <li>
+            <a href="#team" class="block hover:text-indigo-400 transition"
+              >Team</a
+            >
+          </li>
+          <li>
+            <a href="#contact" class="block hover:text-indigo-400 transition"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Globe Canvas -->
+    <canvas id="globe-canvas"></canvas>
+
+    <!-- Hero Section -->
+    <section
+      id="hero"
+      class="relative flex flex-col items-center justify-center text-center min-h-screen overflow-hidden px-4"
+    >
+      <div class="relative z-10">
+        <h1
+          class="text-5xl md:text-6xl font-extrabold mb-4 text-white glow-text"
+        >
+          D-Scope
+        </h1>
+        <p class="text-2xl md:text-3xl text-indigo-400 font-semibold mb-4">
+          The oracle of behavior in the age of digital communities
+        </p>
+        <p
+          class="max-w-xl text-xl md:text-2xl mb-8 text-gray-300 mx-auto text-center"
+        >
+          A new paradigm of social analysis — powered by zk‑technologies,
+          decentralization, and user consensus.
+        </p>
+        <a
+          href="#features"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition"
+        >
+          Explore Features
+        </a>
+      </div>
+    </section>
+
+    <!-- About Tiles -->
+    <section id="about" class="container mx-auto max-w-5xl py-20 px-4">
+      <div class="flex flex-col space-y-16">
+        <div
+          id="tile-left"
+          class="fade-tile max-w-2xl bg-gray-900 border border-indigo-500/30 p-6 rounded-xl shadow-lg self-start"
+        >
+          <h3 class="text-2xl font-semibold text-indigo-400 mb-4">
+            Our Mission
+          </h3>
+          <p class="text-gray-300 text-lg leading-relaxed">
+            D-Scope is a new generation decentralized service for social
+            research.<br />
+            We build an environment where behavioral analysis is ethical,
+            transparent, and secure.<br />
+            Our goal is to give society tools to understand itself — without
+            infringing on individual freedom.
+          </p>
+        </div>
+        <div
+          id="tile-right"
+          class="fade-tile max-w-2xl bg-gray-900 border border-indigo-500/30 p-6 rounded-xl shadow-lg self-end"
+        >
+          <h3 class="text-2xl font-semibold text-indigo-400 mb-4">
+            Our Technology
+          </h3>
+          <p class="text-gray-300 text-lg leading-relaxed">
+            At the core of D-Scope lie zk-proofs and cryptographic privacy
+            mechanisms.<br />
+            Every participant controls what data is shared and in what form.<br />
+            We aggregate anonymized inputs and extract behavioral patterns
+            without compromising identity.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section
+      id="features"
+      class="relative py-24 px-4 bg-gray-900 overflow-hidden"
+    >
+      <!-- Enhanced SVG Background Grid -->
+      <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <svg
+          width="100%"
+          height="100%"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <pattern
+              id="grid"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 40 0 L 0 0 0 40"
+                fill="none"
+                stroke="rgba(99,102,241,0.3)"
+                stroke-width="1"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      <div class="container mx-auto max-w-6xl relative">
+        <h2 class="text-4xl font-bold text-indigo-400 mb-12 text-center">
+          Key Features
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div
+            class="bg-gray-800 border border-indigo-500/20 rounded-xl p-6 shadow-lg"
+            data-aos="fade-up"
+          >
+            <div class="text-3xl text-indigo-400 mb-4">🛡️</div>
+            <h4 class="text-xl font-semibold text-indigo-400 mb-2">
+              Protection Against Manipulation
+            </h4>
+            <p class="text-gray-400">
+              Each participant is verified via SBT, eliminating bots and fake
+              accounts. Your voice stays authentic, and data stays trustworthy.
+            </p>
+          </div>
+
+          <div
+            class="bg-gray-800 border border-indigo-500/20 rounded-xl p-6 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="text-3xl text-indigo-400 mb-4">👤</div>
+            <h4 class="text-xl font-semibold text-indigo-400 mb-2">
+              zk-Anonymity by Default
+            </h4>
+            <p class="text-gray-400">
+              All behavior is protected by zk‑Snarks. No identity is exposed, no
+              trace is left — just validated participation.
+            </p>
+          </div>
+
+          <div
+            class="bg-gray-800 border border-indigo-500/20 rounded-xl p-6 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="text-3xl text-indigo-400 mb-4">📊</div>
+            <h4 class="text-xl font-semibold text-indigo-400 mb-2">
+              On-Chain Access to Insights
+            </h4>
+            <p class="text-gray-400">
+              Behavioral outcomes are delivered through an oracle interface — in
+              real-time and without data leakage.
+            </p>
+          </div>
+
+          <div
+            class="bg-gray-800 border border-indigo-500/20 rounded-xl p-6 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="text-3xl text-indigo-400 mb-4">⚙️</div>
+            <h4 class="text-xl font-semibold text-indigo-400 mb-2">
+              Modular Web3 Integration
+            </h4>
+            <p class="text-gray-400">
+              D‑Scope plugs into DAOs, DePIN, and GameFi as a behavioral
+              research layer. Easy to integrate, ready to scale.
+            </p>
+          </div>
+
+          <div
+            class="bg-gray-800 border border-indigo-500/20 rounded-xl p-6 shadow-lg md:col-span-2"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div class="text-3xl text-indigo-400 mb-4">🗳️</div>
+            <h4 class="text-xl font-semibold text-indigo-400 mb-2">
+              Influence Society — Stay in the Shadows
+            </h4>
+            <p class="text-gray-400">
+              With D‑Scope, you can participate in public processes and have
+              your voice monetized — all while remaining fully anonymous and
+              free from personal data leaks. This is the new frontier of
+              expressive freedom.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Features Section -->
+
+    <!-- Team Section -->
+    <section id="team" class="relative py-24 px-4 bg-gray-900 overflow-hidden">
+      <!-- SVG Background Grid -->
+      <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <svg
+          width="100%"
+          height="100%"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <pattern
+              id="grid-team"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 40 0 L 0 0 0 40"
+                fill="none"
+                stroke="rgba(99,102,241,0.2)"
+                stroke-width="1"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid-team)" />
+        </svg>
+      </div>
+
+      <div
+        class="container mx-auto max-w-3xl relative text-center"
+        data-aos="fade-up"
+      >
+        <div class="text-5xl mb-6">🧬</div>
+        <h2 class="text-4xl font-bold text-indigo-400 mb-4">Our Team</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          D‑Scope is built by a solo founder in collaboration with AI.<br />
+          This is an experiment in what a next-generation Web3 project can be —
+          minimal, autonomous, and aligned with purpose.
+        </p>
+        <span
+          class="inline-block px-4 py-1 mt-6 text-sm bg-indigo-600 text-white rounded-full shadow-md"
+          >AI‑Assisted Project</span
+        >
+      </div>
+    </section>
+    <!-- End Team Section -->
+
+    <!-- Contact Section -->
+    <section
+      id="contact"
+      class="relative py-24 px-4 bg-gray-900 overflow-hidden"
+    >
+      <!-- SVG Background Grid -->
+      <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <svg
+          width="100%"
+          height="100%"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <pattern
+              id="grid-contact"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 40 0 L 0 0 0 40"
+                fill="none"
+                stroke="rgba(99,102,241,0.2)"
+                stroke-width="1"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid-contact)" />
+        </svg>
+      </div>
+
+      <div
+        class="container mx-auto max-w-xl relative text-center"
+        data-aos="fade-up"
+      >
+        <div class="text-5xl mb-6">📬</div>
+        <h2 class="text-4xl font-bold text-indigo-400 mb-4">Contact</h2>
+        <p class="text-gray-300 text-lg leading-relaxed mb-6">
+          Want to collaborate, invest, or just share thoughts? Reach out
+          directly:
+        </p>
+        <p class="text-indigo-400 text-xl font-semibold select-all">
+          ivan.dubin.91@gmail.com
+        </p>
+        <a
+          href="mailto:youremail@example.com"
+          class="inline-block mt-6 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+        >
+          Send Email
+        </a>
+      </div>
+    </section>
+    <!-- End Contact Section -->
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 800, once: true });
+
+      const btn = document.getElementById("mobile-menu-btn");
+      const menu = document.getElementById("mobile-menu");
+      btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({
+        canvas: document.getElementById("globe-canvas"),
+        alpha: true,
+      });
+      renderer.setSize(650, 650);
+
+      const geometry = new THREE.SphereGeometry(2.4, 64, 64);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0x3f51b5,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.4,
+      });
+      const sphere = new THREE.Mesh(geometry, material);
+      scene.add(sphere);
+
+      const initialPositions = geometry.attributes.position.array.slice();
+      const vertexCount = geometry.attributes.position.count;
+
+      camera.position.z = 5.5;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const time = Date.now() * 0.002;
+
+        for (let i = 0; i < vertexCount; i++) {
+          const i3 = i * 3;
+          const offset = Math.sin(time + i) * 0.01;
+          geometry.attributes.position.array[i3 + 0] =
+            initialPositions[i3 + 0] * (1 + offset);
+          geometry.attributes.position.array[i3 + 1] =
+            initialPositions[i3 + 1] * (1 + offset);
+          geometry.attributes.position.array[i3 + 2] =
+            initialPositions[i3 + 2] * (1 + offset);
+        }
+
+        geometry.attributes.position.needsUpdate = true;
+        sphere.rotation.y += 0.0025;
+        sphere.rotation.x += 0.0015;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      const tiles = [
+        { id: "tile-left", delay: 0 },
+        { id: "tile-right", delay: 300 },
+      ];
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const el = entry.target;
+            if (entry.isIntersecting) {
+              el.classList.add("visible");
+            } else {
+              el.classList.remove("visible");
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      tiles.forEach((tile) => {
+        const el = document.getElementById(tile.id);
+        if (el) observer.observe(el);
+      });
+    </script>
+  </body>
+</html>
